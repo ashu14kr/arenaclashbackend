@@ -8,10 +8,10 @@ const port = process.env.PORT || 8000
 app.use(express.json());
 
 app.post("/users",(req,res) => {
-    res.send(data);
     const data = new User(req.body);
     data.save().then(()=>{
         res.send(data);
+        console.log(data)
     }).catch((e) =>{
         res.send(e);
     });

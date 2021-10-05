@@ -18,7 +18,7 @@ app.post("/users",(req,res) => {
 })
 
 app.get("/",(req,res) =>{
-    res.send("Hello users how are you");
+    res.send("Hello users how are you . ready o yeah");
 })
 
 app.listen(port, ()=>{

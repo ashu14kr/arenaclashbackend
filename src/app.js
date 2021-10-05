@@ -8,6 +8,7 @@ const port = process.env.PORT || 8000
 app.use(express.json());
 
 app.post("/users",(req,res) => {
+    res.send("welcome sir");
     const data = new User(req.body);
     data.save().then(()=>{
         res.send(data);
@@ -17,7 +18,7 @@ app.post("/users",(req,res) => {
 })
 
 app.get("/",(req,res) =>{
-    res.send("Hello users how are you"+ data)
+    res.send("Hello users how are you");
 })
 
 app.listen(port, ()=>{

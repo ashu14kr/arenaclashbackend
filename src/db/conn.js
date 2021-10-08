@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-mongoose.connect("mongodb+srv://Ashu14kr:bUgDyECOGOC95ET0@cluster0.cis27.mongodb.net/myFirstDatabase?retryWrites=true&w=majority/users-api", {
+mongoose.connect("mongodb://localhost:27017/users-api", {
     useNewUrlParser:true,
     useUnifiedtopology:true
 }).then( ()=>{
@@ -8,5 +8,3 @@ mongoose.connect("mongodb+srv://Ashu14kr:bUgDyECOGOC95ET0@cluster0.cis27.mongodb
 }).catch((e)=>{
     console.log("connection failed")
 })
-
-//https://thawing-lake-36012.herokuapp.com

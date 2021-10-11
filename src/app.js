@@ -28,6 +28,16 @@ app.post("/userWalletBalance", (req,res) =>{
     });
 })
 
+app.get("/connected/user/:id", async(req, res) =>{
+    try {
+        const _id = req.params.id;
+    const userById = await User.findById(_id);
+    res.send(userById);
+    } catch (error) {
+        res.send(error);
+    }
+})
+
 app.get("/",(req,res) =>{
     res.send("Hello users how are you . ready o yeah");
 })

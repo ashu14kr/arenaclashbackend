@@ -1,6 +1,6 @@
 const express = require("express");
 const User = require("./models/users");
-const Userwallet = require("./models/userWalletBalance")
+const Userwallet = require("./models/userWalletBalance");
 const app = express();
 require("./db/conn");
 
@@ -33,6 +33,16 @@ app.get("/connected/user/:id", async(req, res) =>{
         const _id = req.params.id;
     const userById = await User.findById(_id);
     res.send(userById);
+    } catch (error) {
+        res.send(error);
+    }
+})
+
+app.get("/walletBalance/user/:id", async(req, res) =>{
+    try {
+        const _id = req.params.id;
+    const walletBalancebyId = await Userwallet.findById(_id);
+    res.send(walletBalancebyId);
     } catch (error) {
         res.send(error);
     }

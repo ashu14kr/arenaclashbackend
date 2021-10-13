@@ -1,4 +1,5 @@
 const express = require("express");
+const Postwallethistoryr = require("./models/usersWalletHistory");
 const User = require("./models/users");
 const Userwallet = require("./models/userWalletBalance");
 const app = express();
@@ -28,6 +29,16 @@ app.post("/userWalletBalance", (req,res) =>{
     });
 })
 
+app.post("/user/payment/wallethistory/id/lpjkhy", (req, res) =>{
+    const wallethistoryg = new Postwallethistoryr(req.body);
+    console.log(wallethistoryg);
+    wallethistoryg.save().then(() =>{
+        res.send(wallethistoryg);
+    }).catch((e)=>{
+        res.send(e)
+    });
+})
+
 app.get("/connected/user/:id", async(req, res) =>{
     try {
         const _id = req.params.id;
@@ -45,6 +56,29 @@ app.get("/walletBalance/user/:id", async(req, res) =>{
     res.send(walletBalancebyId);
     } catch (error) {
         res.send(error);
+    }
+})
+
+app.get("/walletreact/:user", async(req, res) =>{
+    try {
+        const users = req.params.user;
+        const historybyid = await Postwallethistoryr.find({user: users});
+        res.send(historybyid);
+    } catch (error) {
+        res.send(error);
+    }
+})
+
+app.patch("/walletBalance/user/updated/:id", async(req, res) =>{
+    try {
+        const _id = req.params.id;
+        const updatedBalance = await Userwallet.findByIdAndUpdate(_id, req.body, {
+            new: true
+        });
+        res.send(updatedBalance);
+        console.log(updatedBalance);
+    } catch (error) {
+        res.status(404).send(error);
     }
 })
 

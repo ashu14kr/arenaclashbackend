@@ -2,6 +2,7 @@ const express = require("express");
 const Postwallethistoryr = require("./models/usersWalletHistory");
 const User = require("./models/users");
 const Userwallet = require("./models/userWalletBalance");
+const BadmintonContest = require("./models/badmintonContest");
 const app = express();
 require("./db/conn");
 
@@ -37,6 +38,26 @@ app.post("/user/payment/wallethistory/id/lpjkhy", (req, res) =>{
     }).catch((e)=>{
         res.send(e)
     });
+})
+
+app.post("/user/created/tournament/badminton/lljjsugsv", (req, res) =>{
+    const badminton = BadmintonContest(req.body);
+    console.log(badminton);
+    badminton.save().then(()=>{
+        res.send(badminton);
+    }).catch((e)=>{
+        res.send(e);
+    });
+})
+
+app.get("/user/badminton/tournament/mjhsgfdrte/:status", async(req,res) =>{
+    try {
+        const status = req.params.status;
+        const badmintonStatus = await BadmintonContest.find({status: status});
+        res.send(badmintonStatus);
+    } catch (error) {
+        res.send(error);
+    }
 })
 
 app.get("/connected/user/:id", async(req, res) =>{

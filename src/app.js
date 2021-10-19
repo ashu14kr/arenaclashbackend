@@ -60,27 +60,29 @@ app.get("/user/badminton/tournament/mjhsgfdrte/:status", async (req, res) => {
     }
 })
 
-app.get("/user/badminton/tournament/mjhsgfdrte/:status/:userUidWhoAccepted", async (req, res) => {
+app.get("/user/badminton/tournament/mjhsgfdrte/:status/:userUidWhoCreated/:userUidWhoAccepted", async (req, res) => {
     try {
         const status = req.params.status;
         const accepted = req.params.userUidWhoAccepted;
-        const badmintonStatus = await BadmintonContest.find({ status: status, userUidWhoAccepted: accepted });
-        res.send(badmintonStatus);
+        const created = req.params.userUidWhoCreated;
+        // const badmintonStatus = await BadmintonContest.find({ status: status, userUidWhoAccepted: accepted });
+        const newstatus = await BadmintonContest.find({status: status}).where({ $or: [ { userUidWhoCreated: created }, { userUidWhoAccepted: accepted } ] })
+        res.send(newstatus);
     } catch (error) {
         res.send(error);
     }
 })
 
-app.get("/user/badminton/tournament/mjhsgfdrte/gg/:status/:userUidWhoCreated", async (req, res) => {
-    try {
-        const status = req.params.status;
-        const accepted = req.params.userUidWhoCreated;
-        const badmintonStatus = await BadmintonContest.find({ status: status, userUidWhoCreated: accepted });
-        res.send(badmintonStatus);
-    } catch (error) {
-        res.send(error);
-    }
-})
+// app.get("/user/badminton/tournament/mjhsgfdrte/gg/:status/:userUidWhoCreated", async (req, res) => {
+//     try {
+//         const status = req.params.status;
+//         const accepted = req.params.userUidWhoCreated;
+//         const badmintonStatus = await BadmintonContest.find({ status: status, userUidWhoCreated: accepted });
+//         res.send(badmintonStatus);
+//     } catch (error) {
+//         res.send(error);
+//     }
+// })
 
 app.get("/connected/user/:id", async (req, res) => {
     try {

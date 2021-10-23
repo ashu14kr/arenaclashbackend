@@ -41,7 +41,7 @@ app.post("/user/payment/wallethistory/id/lpjkhy", (req, res) => {
 })
 
 app.post("/user/created/tournament/badminton/lljjsugsv", (req, res) => {
-    const badminton = BadmintonContest(req.body);
+    const badminton = new BadmintonContest(req.body);
     console.log(badminton);
     badminton.save().then(() => {
         res.send(badminton);
@@ -65,7 +65,6 @@ app.get("/user/badminton/tournament/mjhsgfdrte/:status/:userUidWhoCreated/:userU
         const status = req.params.status;
         const accepted = req.params.userUidWhoAccepted;
         const created = req.params.userUidWhoCreated;
-        // const badmintonStatus = await BadmintonContest.find({ status: status, userUidWhoAccepted: accepted });
         const newstatus = await BadmintonContest.find({status: status}).where({ $or: [ { userUidWhoCreated: created }, { userUidWhoAccepted: accepted } ] })
         res.send(newstatus);
     } catch (error) {

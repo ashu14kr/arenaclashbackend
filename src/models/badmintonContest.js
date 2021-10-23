@@ -17,16 +17,16 @@ const badmintonSchema = new mongoose.Schema({
     winningCoins:{
         type: Number
     },
-    whoWon:{
-    },
-    whoLose:{
-    },
+    whoWon:{},
+    whoLose:{},
+    userlat:{},
+    userlng:{},
     userUidWhoCreated:{},
     userUidWhoAccepted:{},
-    userWhoCreatedName:{
+    createrName:{
         Type: String
     },
-    userWhoAccepedName:{
+    acceperName:{
         Type: String
     },
     userWhoCreatedLocation:{},

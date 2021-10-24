@@ -3,6 +3,7 @@ const Postwallethistoryr = require("./models/usersWalletHistory");
 const User = require("./models/users");
 const Userwallet = require("./models/userWalletBalance");
 const BadmintonContest = require("./models/badmintonContest");
+const withdrawalData = require("./models/withdrawalData");
 const app = express();
 require("./db/conn");
 
@@ -45,6 +46,16 @@ app.post("/user/created/tournament/badminton/lljjsugsv", (req, res) => {
     console.log(badminton);
     badminton.save().then(() => {
         res.send(badminton);
+    }).catch((e) => {
+        res.send(e);
+    });
+})
+
+app.post("/user/created/withdrawal/cmp/data/lljjshhgyugsv", (req, res) => {
+    const withdrawal = new withdrawalData(req.body);
+    console.log(withdrawal);
+    withdrawal.save().then(() => {
+        res.send(withdrawal);
     }).catch((e) => {
         res.send(e);
     });

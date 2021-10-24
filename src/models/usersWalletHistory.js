@@ -13,11 +13,10 @@ const walletHistorySchema = new mongoose.Schema({
         type: String
     },
     paymentCreated: {
-        type: String
     },
     processedOn: {
-        type: String
     },
+    paymentType:{},
     amount: {
         type: Number
     }

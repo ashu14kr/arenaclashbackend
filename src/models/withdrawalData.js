@@ -9,7 +9,8 @@ const withdrawalDataSchema = new mongoose.Schema({
     requestedId:{},
     paymentMethod:{},
     completedDate:{},
-    transactiontype:{},
+    userPhoneNo:{},
+    transactiontype:{}
 })
 
 const withdrawalData = new mongoose.model("WithdawalData", withdrawalDataSchema);

@@ -61,6 +61,16 @@ app.post("/user/created/withdrawal/cmp/data/lljjshhgyugsv", (req, res) => {
     });
 })
 
+app.get("/user/created/withdrawal/cmp/data/:status", async(req, res) => {
+    try {
+        const status = req.params.status;
+        const withdrawal = await withdrawalData.find({status: status});
+        res.send(withdrawal);
+    } catch (error) {
+        res.send(error);
+    }
+})
+
 app.get("/user/badminton/tournament/mjhsgfdrte/:status", async (req, res) => {
     try {
         const status = req.params.status;

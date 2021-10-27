@@ -13,5 +13,5 @@ const withdrawalDataSchema = new mongoose.Schema({
     transactiontype:{}
 })
 
-const withdrawalData = new mongoose.model("WithdawalData", withdrawalDataSchema);
-module.exports = withdrawalData;
+const WithdrawalData = new mongoose.model("WithdrawalData", withdrawalDataSchema);
+module.exports = WithdrawalData;

@@ -3,7 +3,9 @@ const Postwallethistoryr = require("./models/usersWalletHistory");
 const User = require("./models/users");
 const Userwallet = require("./models/userWalletBalance");
 const BadmintonContest = require("./models/badmintonContest");
-const withdrawalData = require("./models/withdrawalData");
+const WithdrawalData = require("./models/withdrawalData");
+const FootballContest = require("./models/FootballContest");
+const CricketContest = require("./models/cricketContest")
 const app = express();
 require("./db/conn");
 
@@ -51,8 +53,28 @@ app.post("/user/created/tournament/badminton/lljjsugsv", (req, res) => {
     });
 })
 
+app.post("/user/created/tournament/football/lljjsugsv", (req, res) => {
+    const football = new FootballContest(req.body);
+    console.log(football);
+    football.save().then(() => {
+        res.send(football);
+    }).catch((e) => {
+        res.send(e);
+    });
+})
+
+app.post("/user/created/tournament/cricket/lljjsugsv", (req, res) => {
+    const cricket = new CricketContest(req.body);
+    console.log(cricket);
+    cricket.save().then(() => {
+        res.send(cricket);
+    }).catch((e) => {
+        res.send(e);
+    });
+})
+
 app.post("/user/created/withdrawal/cmp/data/lljjshhgyugsv", (req, res) => {
-    const withdrawal = new withdrawalData(req.body);
+    const withdrawal = new WithdrawalData(req.body);
     console.log(withdrawal);
     withdrawal.save().then(() => {
         res.send(withdrawal);
@@ -64,7 +86,7 @@ app.post("/user/created/withdrawal/cmp/data/lljjshhgyugsv", (req, res) => {
 app.get("/user/created/withdrawal/cmp/data/:status", async(req, res) => {
     try {
         const status = req.params.status;
-        const withdrawal = await withdrawalData.find({status: status});
+        const withdrawal = await WithdrawalData.find({status: status});
         res.send(withdrawal);
     } catch (error) {
         res.send(error);
@@ -76,6 +98,26 @@ app.get("/user/badminton/tournament/mjhsgfdrte/:status", async (req, res) => {
         const status = req.params.status;
         const badmintonStatus = await BadmintonContest.find({ status: status });
         res.send(badmintonStatus);
+    } catch (error) {
+        res.send(error);
+    }
+})
+
+app.get("/user/football/tournament/mjhsgfdrte/:status", async (req, res) => {
+    try {
+        const status = req.params.status;
+        const footballStatus = await FootballContest.find({ status: status });
+        res.send(footballStatus);
+    } catch (error) {
+        res.send(error);
+    }
+})
+
+app.get("/user/cricket/tournament/mjhsgfdrte/:status", async (req, res) => {
+    try {
+        const status = req.params.status;
+        const cricketStatus = await CricketContest.find({ status: status });
+        res.send(cricketStatus);
     } catch (error) {
         res.send(error);
     }
@@ -93,16 +135,29 @@ app.get("/user/badminton/tournament/mjhsgfdrte/:status/:userUidWhoCreated/:userU
     }
 })
 
-// app.get("/user/badminton/tournament/mjhsgfdrte/gg/:status/:userUidWhoCreated", async (req, res) => {
-//     try {
-//         const status = req.params.status;
-//         const accepted = req.params.userUidWhoCreated;
-//         const badmintonStatus = await BadmintonContest.find({ status: status, userUidWhoCreated: accepted });
-//         res.send(badmintonStatus);
-//     } catch (error) {
-//         res.send(error);
-//     }
-// })
+app.get("/user/football/tournament/mjhsgfdrte/:status/:userUidWhoCreated/:userUidWhoAccepted", async (req, res) => {
+    try {
+        const status = req.params.status;
+        const accepted = req.params.userUidWhoAccepted;
+        const created = req.params.userUidWhoCreated;
+        const newstatus = await FootballContest.find({status: status}).where({ $or: [ { userUidWhoCreated: created }, { userUidWhoAccepted: accepted } ] })
+        res.send(newstatus);
+    } catch (error) {
+        res.send(error);
+    }
+})
+
+app.get("/user/cricket/tournament/mjhsgfdrte/:status/:userUidWhoCreated/:userUidWhoAccepted", async (req, res) => {
+    try {
+        const status = req.params.status;
+        const accepted = req.params.userUidWhoAccepted;
+        const created = req.params.userUidWhoCreated;
+        const newstatus = await CricketContest.find({status: status}).where({ $or: [ { userUidWhoCreated: created }, { userUidWhoAccepted: accepted } ] })
+        res.send(newstatus);
+    } catch (error) {
+        res.send(error);
+    }
+})
 
 app.get("/connected/user/:id", async (req, res) => {
     try {
@@ -151,6 +206,32 @@ app.patch("/badminton/contest/user/info/status/:id", async (req, res) => {
     try {
         const _id = req.params.id;
         const updatedDetails = await BadmintonContest.findByIdAndUpdate(_id, req.body, {
+            new: true
+        });
+        res.send(updatedDetails);
+        console.log(updatedDetails);
+    } catch (error) {
+        res.status(404).send(error);
+    }
+})
+
+app.patch("/football/contest/user/info/status/:id", async (req, res) => {
+    try {
+        const _id = req.params.id;
+        const updatedDetails = await FootballContest.findByIdAndUpdate(_id, req.body, {
+            new: true
+        });
+        res.send(updatedDetails);
+        console.log(updatedDetails);
+    } catch (error) {
+        res.status(404).send(error);
+    }
+})
+
+app.patch("/cricket/contest/user/info/status/:id", async (req, res) => {
+    try {
+        const _id = req.params.id;
+        const updatedDetails = await CricketContest.findByIdAndUpdate(_id, req.body, {
             new: true
         });
         res.send(updatedDetails);

@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const badmintonSchema = new mongoose.Schema({
+const footballSchema = new mongoose.Schema({
 
     status:{
         type: String
@@ -8,7 +8,7 @@ const badmintonSchema = new mongoose.Schema({
     matchType:{
         type: String
     },
-    totalPoints:{
+    totalGoals:{
         type: String
     },
     betCoins:{
@@ -31,5 +31,5 @@ const badmintonSchema = new mongoose.Schema({
 
 })
 
-const BadmintonContest = new mongoose.model("BadmintonContest", badmintonSchema);
-module.exports = BadmintonContest;
+const FootballContest = new mongoose.model("FootballContest", footballSchema);
+module.exports = FootballContest;
